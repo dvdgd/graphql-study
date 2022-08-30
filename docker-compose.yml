@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: backend_node
+    restart: always
+    volumes:
+      - ./backend:/usr/app/
+    ports:
+      - 4000:4000
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend_react
+    restart: always
+    volumes:
+      - ./frontend:/usr/app
+    ports:
+      - 8080:8080
+    links:
+      - backend
+    depends_on:
+      - backend
